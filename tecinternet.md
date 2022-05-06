@@ -25,6 +25,6 @@ CREATE TABLE alunos(
 );
 
 ALTER TABLE cursos 
-ADD CONSTRAINT fk_cursos_professores  FOREIGN KEY (professore_id) REFERENCES professores(id);
+ADD CONSTRAINT fk_cursos_professores  FOREIGN KEY (professor_id) REFERENCES professores(id);
 
 ```
