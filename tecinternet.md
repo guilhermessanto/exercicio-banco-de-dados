@@ -146,11 +146,19 @@ INSERT INTO alunos (nome, data_nascimento, primeira_nota, segunda_nota, curso_id
 ),
 (
     'Mauro',
-    '1996',
+    '1998-07-14',
     3,
     9,
     1
 
+);
+
+INSERT INTO alunos (nome, data_nascimento, primeira_nota, segunda_nota, curso_id) VALUES (
+    'Eneias',
+    '1972-02-12',
+    3.6,
+    5.9,
+    5
 );
 
 ```
