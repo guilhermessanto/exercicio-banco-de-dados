@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Maio-2022 às 16:59
+-- Tempo de geração: 09-Maio-2022 às 15:49
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.0.13
 
@@ -31,10 +31,27 @@ CREATE TABLE `alunos` (
   `id` smallint(6) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `data_nascimento` date NOT NULL,
-  `primeira_nota` decimal(4,0) NOT NULL,
-  `segunda_nota` decimal(4,0) NOT NULL,
+  `primeira_nota` decimal(4,2) NOT NULL,
+  `segunda_nota` decimal(4,2) NOT NULL,
   `curso_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `alunos`
+--
+
+INSERT INTO `alunos` (`id`, `nome`, `data_nascimento`, `primeira_nota`, `segunda_nota`, `curso_id`) VALUES
+(1, 'Guilherme', '1998-10-31', '8.50', '9.00', 1),
+(2, 'Felipe', '1995-01-02', '8.50', '7.00', 2),
+(3, 'João', '2000-04-13', '7.00', '8.00', 4),
+(4, 'Carol', '2001-05-10', '7.00', '9.00', 3),
+(5, 'Rayssa', '2008-10-04', '8.00', '7.00', 4),
+(6, 'Joel', '1993-02-12', '3.00', '5.00', 5),
+(7, 'Lara', '1973-07-27', '6.00', '5.00', 5),
+(8, 'Juliana', '1969-08-10', '2.00', '9.00', 1),
+(9, 'Rivaldo', '1983-02-25', '1.00', '7.00', 2),
+(10, 'Mauro', '1998-07-14', '3.00', '9.00', 1),
+(11, 'Eneias', '1972-02-12', '3.60', '5.90', 5);
 
 -- --------------------------------------------------------
 
@@ -49,6 +66,17 @@ CREATE TABLE `cursos` (
   `professor_id` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `cursos`
+--
+
+INSERT INTO `cursos` (`id`, `titulo`, `carga_horaria`, `professor_id`) VALUES
+(1, 'Front-End', 40, 5),
+(2, 'Back-End', 80, 4),
+(3, 'UX/UI Design', 30, 1),
+(4, 'Figma', 10, 2),
+(5, 'Redes de Computadores', 100, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -56,11 +84,22 @@ CREATE TABLE `cursos` (
 --
 
 CREATE TABLE `professores` (
-  `id` tinyint(4) NOT NULL,
+  `id` smallint(4) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `area_de_atuacao` enum('design','desenvolvimento','infra') NOT NULL,
   `curso_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `professores`
+--
+
+INSERT INTO `professores` (`id`, `nome`, `area_de_atuacao`, `curso_id`) VALUES
+(1, 'Jon Oliva', 'infra', 5),
+(2, 'Lemmy Kilmister', 'design', 4),
+(3, 'Neil Peart', 'design', 3),
+(4, 'Ozzy Osbourne', 'desenvolvimento', 2),
+(5, 'David Gilmour', 'desenvolvimento', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -70,19 +109,22 @@ CREATE TABLE `professores` (
 -- Índices para tabela `alunos`
 --
 ALTER TABLE `alunos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_alunos_cursos` (`curso_id`);
 
 --
 -- Índices para tabela `cursos`
 --
 ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_curso_professor` (`professor_id`);
 
 --
 -- Índices para tabela `professores`
 --
 ALTER TABLE `professores`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_professor_curso` (`curso_id`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -92,19 +134,41 @@ ALTER TABLE `professores`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `professores`
 --
 ALTER TABLE `professores`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `alunos`
+--
+ALTER TABLE `alunos`
+  ADD CONSTRAINT `fk_alunos_cursos` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`);
+
+--
+-- Limitadores para a tabela `cursos`
+--
+ALTER TABLE `cursos`
+  ADD CONSTRAINT `fk_curso_professor` FOREIGN KEY (`professor_id`) REFERENCES `professores` (`id`);
+
+--
+-- Limitadores para a tabela `professores`
+--
+ALTER TABLE `professores`
+  ADD CONSTRAINT `fk_professor_curso` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
