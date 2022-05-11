@@ -193,5 +193,7 @@ cursos.titulo AS curso FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos
 WHERE curso_id IN(1,2) GROUP BY nome ORDER BY titulo ASC; 
 --11
 UPDATE cursos SET titulo = 'Adobe XD' , carga_horaria = 15 WHERE id = 4;
+--12
+
 ```
 
