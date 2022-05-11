@@ -161,5 +161,37 @@ INSERT INTO alunos (nome, data_nascimento, primeira_nota, segunda_nota, curso_id
     5
 );
 
+-- ETAPA 3
+--01
+SELECT nome, data_nascimento FROM alunos WHERE data_nascimento < 20091231;   
+--02
+SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'Média' 
+FROM alunos GROUP BY nome; 
+--03
+SELECT titulo, ROUND((carga_horaria * 0.25),1) AS "Limite de faltas" FROM cursos GROUP BY id;
+--04
+SELECT nome, area_de_atuacao FROM professores WHERE area_de_atuacao LIKE '%desenvolvimento%';
+--05
+SELECT  area_de_atuacao, COUNT(DISTINCT id) AS 'Quantidade de professores' 
+FROM professores GROUP BY area_de_atuacao; 
+--06
+SELECT alunos.nome, cursos.titulo, cursos.carga_horaria 
+FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id ;
+--07
+SELECT professores.nome, cursos.titulo
+FROM professores INNER JOIN cursos ON professores.curso_id = cursos.id  ORDER BY professores;
+--08
+SELECT alunos.nome AS Alunos, cursos.titulo AS Curso, professores.nome AS Professores
+FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id INNER JOIN professores ON cursos_id = cursos.id;
+--09
+SELECT cursos.titulo AS Curso, COUNT(alunos.curso_id) AS "Quantidade" 
+FROM cursos INNER JOIN  alunos ON alunos.curso_id = cursos.id GROUP BY cursos.titulo 
+ORDER BY quantidade DESC;    
+--10
+SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'Média',
+cursos.titulo AS curso FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id  
+WHERE curso_id IN(1,2) GROUP BY nome ORDER BY titulo ASC; 
+--11
+UPDATE cursos SET titulo = 'Adobe XD' , carga_horaria = 15 WHERE id = 4;
 ```
 
