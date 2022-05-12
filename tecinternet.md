@@ -164,7 +164,6 @@ INSERT INTO alunos (nome, data_nascimento, primeira_nota, segunda_nota, curso_id
 -- ETAPA 3
 --01
 SELECT nome, data_nascimento FROM alunos WHERE data_nascimento < 20091231;  
-![img](imagens/01.PNG) 
 
 --02
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'Média' 
