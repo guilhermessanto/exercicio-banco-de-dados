@@ -205,6 +205,11 @@ SELECT nome, cursos.titulo from alunos INNER JOIN cursos ON alunos.curso_id = cu
 SELECT nome, TIMESTAMPDIFF(YEAR,data_nascimento,NOW()) AS Idade FROM alunos;
 --02
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'media' 
-FROM alunos GROUP BY nome WHERE media >= 7; 
+FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) >= 7 GROUP BY nome;
+--03
+SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'media' 
+FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) < 7 GROUP BY nome;
+--04
+SELECT COUNT(id) AS 'qtd alunos' 
+FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) >= 7;
 ```
-
