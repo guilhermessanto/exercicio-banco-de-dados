@@ -195,6 +195,6 @@ WHERE curso_id IN(1,2) GROUP BY nome ORDER BY titulo ASC;
 --11
 UPDATE cursos SET titulo = 'Adobe XD' , carga_horaria = 15 WHERE id = 4;
 --12
-
+DELETE FROM alunos WHERE id = 4;
 ```
 
