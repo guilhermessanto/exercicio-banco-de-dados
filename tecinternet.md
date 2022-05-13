@@ -160,56 +160,106 @@ INSERT INTO alunos (nome, data_nascimento, primeira_nota, segunda_nota, curso_id
     5.9,
     5
 );
-
+```
+```sql
 -- ETAPA 3
 --01
 SELECT nome, data_nascimento FROM alunos WHERE data_nascimento < 20091231;  
-
+```
+![Exercicio 01](imagens/01.PNG)
+```sql
 --02
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'Média' 
 FROM alunos GROUP BY nome; 
+```
+![Exercicio 02](imagens/02.PNG)
+```sql
 --03
 SELECT titulo, ROUND((carga_horaria * 0.25),1) AS "Limite de faltas" FROM cursos GROUP BY id;
+```
+![Exercicio 03](imagens/03.PNG)
+```sql
 --04
 SELECT nome, area_de_atuacao FROM professores WHERE area_de_atuacao LIKE '%desenvolvimento%';
+```
+![Exercicio 04](imagens/04.PNG)
+```sql
 --05
 SELECT  area_de_atuacao, COUNT(DISTINCT id) AS 'Quantidade de professores' 
 FROM professores GROUP BY area_de_atuacao; 
+```
+![Exercicio 05](imagens/05.PNG)
+```sql
 --06
 SELECT alunos.nome, cursos.titulo, cursos.carga_horaria 
 FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id ;
+```
+![Exercicio 06](imagens/06.PNG)
+```sql
 --07
 SELECT professores.nome, cursos.titulo
 FROM professores INNER JOIN cursos ON professores.curso_id = cursos.id  ORDER BY professores;
+```
+![Exercicio 07](imagens/07.PNG)
+```sql
 --08
 SELECT alunos.nome AS Alunos, cursos.titulo AS Curso, professores.nome AS Professores
 FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id INNER JOIN professores ON cursos_id = cursos.id;
+```
+![Exercicio 08](imagens/08.PNG)
+```sql
 --09
 SELECT cursos.titulo AS Curso, COUNT(alunos.curso_id) AS "Quantidade" 
 FROM cursos INNER JOIN  alunos ON alunos.curso_id = cursos.id GROUP BY cursos.titulo 
 ORDER BY quantidade DESC;    
+```
+![Exercicio 09](imagens/09.PNG)
+```sql
 --10
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'Média',
 cursos.titulo AS curso FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id  
 WHERE curso_id IN(1,2) GROUP BY nome ORDER BY titulo ASC; 
+```
+![Exercicio 10](imagens/10.PNG)
+```sql
 --11
 UPDATE cursos SET titulo = 'Adobe XD' , carga_horaria = 15 WHERE id = 4;
+```
+![Exercicio 11](imagens/11.PNG)
+```sql
 --12
 DELETE FROM alunos WHERE id = 6;
 DELETE FROM alunos WHERE id = 10;
+```
+![Exercicio 12](imagens/12.PNG)
+```sql
 --13
 SELECT nome, cursos.titulo from alunos INNER JOIN cursos ON alunos.curso_id = cursos.id ORDER BY nome;
 
+```
+![Exercicio 13](imagens/13.PNG)
+```sql
 --DESAFIO
 --01
 SELECT nome, TIMESTAMPDIFF(YEAR,data_nascimento,NOW()) AS Idade FROM alunos;
+```
+![Exercicio 01](imagens/desafio_01.PNG)
+```sql
 --02
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'media' 
 FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) >= 7 GROUP BY nome;
+```
+![Desafio 02](imagens/desafio_02.PNG)
+```sql
 --03
 SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'media' 
 FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) < 7 GROUP BY nome;
+```
+![desafio 03](imagens/desafio_03.PNG)
+
+```sql
 --04
 SELECT COUNT(id) AS 'qtd alunos' 
 FROM alunos WHERE ROUND((primeira_nota + segunda_nota)/2) >= 7;
 ```
+![Desafio 04](imagens/desafio_04.PNG)
