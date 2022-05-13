@@ -195,6 +195,16 @@ WHERE curso_id IN(1,2) GROUP BY nome ORDER BY titulo ASC;
 --11
 UPDATE cursos SET titulo = 'Adobe XD' , carga_horaria = 15 WHERE id = 4;
 --12
-DELETE FROM alunos WHERE id = 4;
+DELETE FROM alunos WHERE id = 6;
+DELETE FROM alunos WHERE id = 10;
+--13
+SELECT nome, cursos.titulo from alunos INNER JOIN cursos ON alunos.curso_id = cursos.id ORDER BY nome;
+
+--DESAFIO
+--01
+SELECT nome, TIMESTAMPDIFF(YEAR,data_nascimento,NOW()) AS Idade FROM alunos;
+--02
+SELECT nome ,primeira_nota,segunda_nota, ROUND(AVG((primeira_nota + segunda_nota)/2),2) AS 'media' 
+FROM alunos GROUP BY nome WHERE media >= 7; 
 ```
 
